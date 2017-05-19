@@ -37,7 +37,7 @@ class ProxySpider(object):
                 for proxy in proxy_list:
                     print "Get proxy %s and get into queue" % (proxy)
                     self.proxy_queue.put(proxy)
-        print "Success! get all proxy in queue!"
+        print "Get all proxy in queue!"
         self.fetch_finish = True
 
     """
@@ -85,7 +85,7 @@ class ProxySpider(object):
             return
         with self.lock:     
             with open(OUTPUT_FILE, "a") as proxy_file:
-                print "Success,write to proxy_list"
+                print "Write %sto proxy_list.txt" % proxy
                 proxy_file.write("%s\n" % proxy)
    
     """一个线程用于抓取，多个线程用于测试"""
@@ -104,6 +104,7 @@ class ProxySpider(object):
 def main():
     spider = ProxySpider()
     spider.run()
+    print "fetch is over, begin to upload!!!!!!"
     """上述任务执行完成后，上传结果到七牛,注意在上传之前先要配置七牛的认证"""
     #uploadtoqiniu = qiniuupload.uploadToqiniu()
     #uploadtoqiniu.upload() 
