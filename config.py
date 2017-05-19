@@ -1,6 +1,9 @@
-# coding: utf8
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# -*- author by pekingzcc -*-
+# -*- date : 2017-05-19 -*-
 
-"""配置
+"""配置文件
 """
 
 # 采集的站点

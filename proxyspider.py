@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# -*- author by pekingzcc -*-
+# -*- date : 2017-05-19 -*-
+
+
 
 import requests
 import Queue
@@ -14,13 +18,15 @@ from config import (
 
 
 class ProxySpider(object):
-    """docstring for Fetcher"""
+    """代理IP 爬虫"""
     def __init__(self):
         
         self.fetch_finish = False
         self.proxy_queue = Queue.Queue()
 
-
+    """
+       起一个线程将采集到的所有代理IP写入一个queue中
+    """
     def in_proxy_queue(self):
         for site in PROXY_SITES:
             resp  = self._fetch(site)
@@ -32,6 +38,9 @@ class ProxySpider(object):
         print "Success! get all proxy in queue!"
         self.fetch_finish = True
 
+    """
+        起多个线程取出queue中的代理IP 测试是否可用
+    """
     def out_proxy_queue(self):
         while self.fetch_finish == False or not self.proxy_queue.empty():
             print "Begin to get proxy from queue"
@@ -40,7 +49,7 @@ class ProxySpider(object):
             if check_proxy is not None and check_proxy.status_code == 200:
                 self._output_proxy(proxy)
 
-
+    """ 抓取代理网站函数"""
     def _fetch(self, url, proxy=None):
         kwargs = {
             "headers": {
@@ -61,14 +70,14 @@ class ProxySpider(object):
                 continue
         return resp
 
-
+    """ 解析抓取到的内容，得到代理IP"""
     def _extract(self, resp):
         proxy_list = []
         if resp is not None:
             proxy_list = re.findall(PROXY_REGX, resp.text)
         return proxy_list
 
-
+    """ 输出可用的代理IP """
     def _output_proxy(self, proxy):
         if not proxy:
             return 
@@ -76,15 +85,12 @@ class ProxySpider(object):
             print "Success,write to proxy_list"
             proxy_file.write("%s\n" % proxy)
    
-
+    """一个线程用于抓取，多个线程用于测试"""
     def run(self):
         
         threads = []
         in_proxy_queue_thread = threading.Thread(target = self.in_proxy_queue)
-        #in_proxy_queue_thread.start()
-
         out_proxy_queue_threads = [threading.Thread(target = self.out_proxy_queue) for i in range(100)]
-        #out_proxy_queue_thread = threading.Thread(target = self.out_proxy_queue)
         threads.append(in_proxy_queue_thread)
         threads.extend(out_proxy_queue_threads)
         [thread.start() for thread in threads]
