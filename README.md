@@ -4,12 +4,19 @@
 
 想直接获取可用代理IP 的可以直接使用[这个](http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt?v=100)
 
-因为七牛CDN的原因，可能存在源文件已更新，但命中缓存仍然是之前没变的文件，这时，可以在这个 url “http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt” 后面添加“?v=2000” ，比如“http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt?v=2000” 数字可以随意，尽量大，即可获取最新的文件。
+
 
 
 
 ## 说明
 
+
+### 文件更新慢问题
+
+因为七牛CDN的原因，可能存在源文件已更新，但命中缓存仍然是之前没变的文件，这时，可以在这个 url  “http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt”  后面添加“?v=2000” ，比如 “http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt?v=2000”  数字可以随意，尽量大，即可获取最新的文件。
+
+
+### 源码说明
 
 
 #### config.py
