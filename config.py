@@ -8,8 +8,22 @@
 
 # 采集的站点
 PROXY_SITES = [
-
+    'http://checkerproxy.net/all_proxy',
+    'http://ab57.ru/downloads/proxyold.txt',
+    'http://www.freeproxy.ru/download/lists/goodproxy.txt',
+    'http://www.proxylists.net/http_highanon.txt',
+    'http://www.atomintersoft.com/high_anonymity_elite_proxy_list',
+    'http://www.atomintersoft.com/transparent_proxy_list',
+    'http://www.atomintersoft.com/anonymous_proxy_list',
+    'http://www.proxy4free.info/',
+    'http://tools.rosinstrument.com/proxy/plab100.xml',
     'http://www.rmccurdy.com/scripts/proxy/good.txt',
+    'http://proxy.ipcn.org/proxylist2.html',
+    'http://wapland.org/proxy/proxy.txt',
+    'http://best-proxy.ru/feed',
+    'http://www.proxylists.net/?HTTP',
+    'http://www.scrapeboxproxies.net/',
+    'http://uks.pl.ua/script/getproxy.php?last',
 
 ]
 
