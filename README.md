@@ -1,6 +1,6 @@
 ##  用途
 
-用于采集网上的公用代理IP,目前该程序仍在跑，每隔三小时刷新一遍代理IP，并将可用代理IP 上传到七牛云。
+用于采集网上的公用代理IP,目前该程序仍在跑，每隔三小时刷新一遍代理IP，并将可用代理IP 上传到七牛云，可用性测试用的百度，不保证其他网站代理可用。
 
 想直接获取可用代理IP 的可以直接使用[这个](http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt)
 
@@ -31,3 +31,4 @@ git clone https://github.com/zhangchenchen/proxyspider.git
 cd proxyspider
 
 python proxyspider.py
+
