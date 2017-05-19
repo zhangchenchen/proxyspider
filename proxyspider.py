@@ -10,6 +10,7 @@ import Queue
 import re
 from random import choice
 import threading
+import qiniuupload
 
 
 from config import (
@@ -103,6 +104,9 @@ class ProxySpider(object):
 def main():
     spider = ProxySpider()
     spider.run()
+    """上述任务执行完成后，上传结果到七牛,注意在上传之前先要配置七牛的认证"""
+    #uploadtoqiniu = qiniuupload.uploadToqiniu()
+    #uploadtoqiniu.upload() 
 
 
 if __name__ == "__main__":
