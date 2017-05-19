@@ -13,7 +13,9 @@
 
 ### 文件更新慢问题
 
-因为七牛CDN的原因，可能存在源文件已更新，但命中缓存仍然是之前没变的文件，这时，可以在这个 url  “http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt”  后面添加“?v=2000” ，比如 “http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt?v=2000”  数字可以随意，尽量大，即可获取最新的文件。
+因为七牛CDN的原因，可能存在源文件已更新，但命中缓存仍然是之前没变的文件，这时
+参考[这里](https://developer.qiniu.com/fusion/kb/1325/refresh-the-cache-and-the-effect-of-time)的第一种情况来解决。
+可以在这个 url  “http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt”  后面添加“?v=2000” ，比如 “http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt?v=2000”  数字可以随意，尽量大，即可获取最新的文件。
 
 
 ### 源码说明
