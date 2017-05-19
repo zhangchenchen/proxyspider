@@ -23,6 +23,7 @@ class ProxySpider(object):
         
         self.fetch_finish = False
         self.proxy_queue = Queue.Queue()
+        self.lock = threading.Lock()
 
     """
        起一个线程将采集到的所有代理IP写入一个queue中
@@ -80,10 +81,11 @@ class ProxySpider(object):
     """ 输出可用的代理IP """
     def _output_proxy(self, proxy):
         if not proxy:
-            return 
-        with open(OUTPUT_FILE, "a") as proxy_file:
-            print "Success,write to proxy_list"
-            proxy_file.write("%s\n" % proxy)
+            return
+        with self.lock:     
+            with open(OUTPUT_FILE, "a") as proxy_file:
+                print "Success,write to proxy_list"
+                proxy_file.write("%s\n" % proxy)
    
     """一个线程用于抓取，多个线程用于测试"""
     def run(self):
