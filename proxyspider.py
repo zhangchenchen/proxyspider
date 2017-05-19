@@ -25,6 +25,7 @@ class ProxySpider(object):
         self.fetch_finish = False
         self.proxy_queue = Queue.Queue()
         self.lock = threading.Lock()
+        self.good_proxy = set()
 
     """
        起一个线程将采集到的所有代理IP写入一个queue中
@@ -49,7 +50,7 @@ class ProxySpider(object):
             proxy = self.proxy_queue.get()
             check_proxy = self._fetch(TEST_URL, proxy)
             if check_proxy is not None and check_proxy.status_code == 200:
-                self._output_proxy(proxy)
+                self._deduplicate_proxy(proxy)
 
     """ 抓取代理网站函数"""
     def _fetch(self, url, proxy=None):
@@ -79,18 +80,22 @@ class ProxySpider(object):
             proxy_list = re.findall(PROXY_REGX, resp.text)
         return proxy_list
 
-    """ 输出可用的代理IP """
-    def _output_proxy(self, proxy):
+    """ 输出可用的代理IP 到 set 中以达到去重"""
+    def _deduplicate_proxy(self, proxy):
         if not proxy:
             return
-        with self.lock:     
-            with open(OUTPUT_FILE, "a") as proxy_file:
-                print "Write %sto proxy_list.txt" % proxy
+        with self.lock:
+            self.good_proxy.add(proxy)     
+            
+    """ 持久化可用代理IP """
+    def output_proxy(self):
+        with open(OUTPUT_FILE, "w+") as proxy_file:           
+            for proxy in self.good_proxy:
+                print "Write %sto proxy_list.txt" % proxy 
                 proxy_file.write("%s\n" % proxy)
-   
+
     """一个线程用于抓取，多个线程用于测试"""
-    def run(self):
-        
+    def run(self):       
         threads = []
         in_proxy_queue_thread = threading.Thread(target = self.in_proxy_queue)
         out_proxy_queue_threads = [threading.Thread(target = self.out_proxy_queue) for i in range(100)]
@@ -98,12 +103,15 @@ class ProxySpider(object):
         threads.extend(out_proxy_queue_threads)
         [thread.start() for thread in threads]
         [thread.join() for thread in threads]
+        """最终输出可用代理IP"""
+        self.output_proxy()
 
 
 
 def main():
     spider = ProxySpider()
     spider.run()
+
     print "fetch is over, begin to upload!!!!!!"
     """上述任务执行完成后，上传结果到七牛,注意在上传之前先要配置七牛的认证"""
     #uploadtoqiniu = qiniuupload.uploadToqiniu()
