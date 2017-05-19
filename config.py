@@ -43,3 +43,13 @@ PROXY_REGX = r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{2,4}"
 
 # 测试URL
 TEST_URL = "http://www.baidu.com"
+
+## 七牛AccessKey/SecretKey,具体含义参考七牛官网文档
+
+QINIU_AUTH = {
+    "AccessKey": "*********************",
+    "SecretKey": "*********************"
+}
+
+## 上传到七牛 的bucket, 具体含义参考七牛官网文档
+QINIU_BUCKET = "*****"
