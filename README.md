@@ -17,6 +17,10 @@
 
 最终代理IP 的输出文档。
 
+#### qiniuupload.py
+
+将proxy_list.txt，定期提交到七牛云存储，目前是维护在这里[链接] (http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt)
+
 
 ## 使用
 
