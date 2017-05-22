@@ -8,13 +8,15 @@
 import requests
 import Queue
 import re
+from lxml import etree
+from lxml import html
 from random import choice
 import threading
 import qiniuupload
 
 
 from config import (
-    PROXY_SITES, OUTPUT_FILE, USER_AGENT_LIST, RETRY_NUM, TIME_OUT, TEST_URL, PROXY_REGX
+    PROXY_SITES_BY_REGX, PROXY_SITES_BY_XPATH, OUTPUT_FILE, USER_AGENT_LIST, RETRY_NUM, TIME_OUT, TEST_URL
 )   
 
 
@@ -31,13 +33,23 @@ class ProxySpider(object):
        起一个线程将采集到的所有代理IP写入一个queue中
     """
     def in_proxy_queue(self):
-        for site in PROXY_SITES:
+        '''根据正则直接获取代理IP 部分'''
+        for site in PROXY_SITES_BY_REGX['urls']:
             resp  = self._fetch(site)
             if resp is not None and resp.status_code == 200:
-                proxy_list = self._extract(resp)
+                proxy_list = self._extract_by_regx(resp)
                 for proxy in proxy_list:
                     print "Get proxy %s and get into queue" % (proxy)
                     self.proxy_queue.put(proxy)
+        '''根据xpath 获取代理IP 部分'''
+        for sites in PROXY_SITES_BY_XPATH:
+            for site in sites['urls']:
+                resp  = self._fetch(site)
+                if resp is not None and resp.status_code == 200:
+                    proxy_list = self._extract_by_xpath(resp, sites['ip_xpath'], sites['port_xpath'])
+                    for proxy in proxy_list:
+                        print "Get proxy %s and get into queue" % (proxy)
+                        self.proxy_queue.put(proxy)                  
         print "Get all proxy in queue!"
         self.fetch_finish = True
 
@@ -73,12 +85,25 @@ class ProxySpider(object):
                 continue
         return resp
 
-    """ 解析抓取到的内容，得到代理IP"""
-    def _extract(self, resp):
+    """ 根据解析抓取到的内容，得到代理IP"""
+    def _extract_by_regx(self, resp):
         proxy_list = []
         if resp is not None:
-            proxy_list = re.findall(PROXY_REGX, resp.text)
+            proxy_list = re.findall(PROXY_SITES_BY_REGX['proxy_regx'], resp.text)
         return proxy_list
+
+    def _extract_by_xpath(self, resp, ip_xpath, port_xpath):
+        #import pdb;pdb.set_trace()
+        proxy_list = []
+        if resp is not None:
+            resp = html.fromstring(resp.text)
+            ip_list = resp.xpath(ip_xpath)
+            port_list = resp.xpath(port_xpath)
+            for i in range(len(ip_list)):
+                proxy = ip_list[i] + ":" + port_list[i]
+                proxy_list.append(proxy)
+        return proxy_list        
+
 
     """ 输出可用的代理IP 到 set 中以达到去重"""
     def _deduplicate_proxy(self, proxy):
