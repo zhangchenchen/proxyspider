@@ -42,9 +42,13 @@
 
 ## 使用
 
+注：建议使用virtualenv
+
 git clone https://github.com/zhangchenchen/proxyspider.git
 
 cd proxyspider
+
+pip install -r requirements.txt
 
 python proxyspider.py
 
