@@ -1,6 +1,6 @@
 ## 更新 ---2017-06-12
 
-- 因为vps的问题，该程序已经不再更新七牛云的代理IP 文件，也就是说[该文件]((http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt?v=1000) 不再是最新的代理IP。
+- 因为vps的问题，该程序已经不再更新七牛云的代理IP 文件，也就是说[该文件](http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt?v=1000) 不再是最新的代理IP。
 - 建议按照使用步骤自己爬取。
 
 
