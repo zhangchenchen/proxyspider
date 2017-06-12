@@ -1,3 +1,9 @@
+## 更新 ---2017-06-12
+
+- 因为vps的问题，该程序已经不再更新七牛云的代理IP 文件，也就是说[该文件]((http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt?v=1000) 不再是最新的代理IP。
+- 建议按照使用步骤自己爬取。
+
+
 ##  用途
 
 用于采集网上的公用代理IP（源站见配置文件）,目前该程序仍在跑，每隔三小时刷新一遍代理IP，并将可用代理IP 上传到七牛云，可用性测试用的百度，因为时效性，不保证完全可用，但能保证基本的可用性。
@@ -51,4 +57,6 @@ cd proxyspider
 pip install -r requirements.txt
 
 python proxyspider.py
+
+注：程序跑完后，所有代理IP输出到当前目录下的proxy_list.txt 
 
