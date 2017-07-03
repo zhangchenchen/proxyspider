@@ -9,21 +9,21 @@
 # 利用一个正则就可以直接采集代理IP的站点
 PROXY_SITES_BY_REGX = {
     'urls': [
-        'http://checkerproxy.net/all_proxy',
+        #'http://checkerproxy.net/all_proxy',
         'http://ab57.ru/downloads/proxyold.txt',
-        'http://www.freeproxy.ru/download/lists/goodproxy.txt',
+        #'http://www.freeproxy.ru/download/lists/goodproxy.txt',
         'http://www.proxylists.net/http_highanon.txt',
         'http://www.atomintersoft.com/high_anonymity_elite_proxy_list',
         'http://www.atomintersoft.com/transparent_proxy_list',
         'http://www.atomintersoft.com/anonymous_proxy_list',
         'http://www.proxy4free.info/',
         'http://tools.rosinstrument.com/proxy/plab100.xml',
-        'http://www.rmccurdy.com/scripts/proxy/good.txt',
+        'https://www.rmccurdy.com/scripts/proxy/good.txt',
         'http://proxy.ipcn.org/proxylist2.html',
-        'http://wapland.org/proxy/proxy.txt',
+        #'http://wapland.org/proxy/proxy.txt',
         'http://best-proxy.ru/feed',
         'http://www.proxylists.net/?HTTP',
-        'http://www.scrapeboxproxies.net/',
+        #'http://www.scrapeboxproxies.net/',
         'http://uks.pl.ua/script/getproxy.php?last'
     ],
     'proxy_regx': r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{2,4}"   
@@ -36,21 +36,21 @@ PROXY_SITES_BY_XPATH = [
         'ip_xpath': ".//*[@id='main']/div/div[1]/table/tr[position()>1]/td[1]/text()" , 
         'port_xpath': ".//*[@id='main']/div/div[1]/table/tr[position()>1]/td[2]/text()" 
     },
-    {
-        'urls': ['http://cn-proxy.com/', 'http://cn-proxy.com/archives/218'],
-        'ip_xpath': ".//table[@class='sortable']/tbody/tr/td[1]/text()" ,
-        'port_xpath': ".//table[@class='sortable']/tbody/tr/td[2]/text()" 
-    },
+    # {
+    #     'urls': ['http://cn-proxy.com/', 'http://cn-proxy.com/archives/218'],
+    #     'ip_xpath': ".//table[@class='sortable']/tbody/tr/td[1]/text()" ,
+    #     'port_xpath': ".//table[@class='sortable']/tbody/tr/td[2]/text()" 
+    # },
     {
         'urls': ['http://www.mimiip.com/gngao/%s' % page for page in range(2, 10)],
         'ip_xpath': ".//table[@class='list']/tbody/tr/td[1]/text()",
         'port_xpath': ".//table[@class='list']/tbody/tr/td[2]/text()" 
     },
-    {
-        'urls': ['http://www.kuaidaili.com/proxylist/%s/' % page for page in range(1, 11)],
-        'ip_xpath': ".//*[@id='index_free_list']/table/tbody/tr/td[1]/text()" ,
-        'port_xpath': ".//*[@id='index_free_list']/table/tbody/tr/td[2]/text()" 
-    },
+    # {
+    #     'urls': ['http://www.kuaidaili.com/proxylist/%s/' % page for page in range(1, 11)],
+    #     'ip_xpath': ".//*[@id='index_free_list']/table/tbody/tr/td[1]/text()" ,
+    #     'port_xpath': ".//*[@id='index_free_list']/table/tbody/tr/td[2]/text()" 
+    # },
     {
         'urls': ['http://www.ip181.com/daili/%s.html' % page for page in range(1, 8)],
         'ip_xpath': ".//div[@class='row']/div[3]/table/tbody/tr[position()>1]/td[1]/text()" ,

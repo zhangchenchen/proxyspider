@@ -37,19 +37,25 @@ class ProxySpider(object):
         for site in PROXY_SITES_BY_REGX['urls']:
             resp  = self._fetch(site)
             if resp is not None and resp.status_code == 200:
-                proxy_list = self._extract_by_regx(resp)
-                for proxy in proxy_list:
-                    print "Get proxy %s and get into queue" % (proxy)
-                    self.proxy_queue.put(proxy)
+                try:
+                    proxy_list = self._extract_by_regx(resp)
+                    for proxy in proxy_list:
+                        print "Get proxy %s and get into queue" % (proxy)
+                        self.proxy_queue.put(proxy)
+                except Exception as e:
+                    continue
         '''根据xpath 获取代理IP 部分'''
         for sites in PROXY_SITES_BY_XPATH:
             for site in sites['urls']:
                 resp  = self._fetch(site)
                 if resp is not None and resp.status_code == 200:
-                    proxy_list = self._extract_by_xpath(resp, sites['ip_xpath'], sites['port_xpath'])
-                    for proxy in proxy_list:
-                        print "Get proxy %s and get into queue" % (proxy)
-                        self.proxy_queue.put(proxy)                  
+                    try:
+                        proxy_list = self._extract_by_xpath(resp, sites['ip_xpath'], sites['port_xpath'])
+                        for proxy in proxy_list:
+                            print "Get proxy %s and get into queue" % (proxy)
+                            self.proxy_queue.put(proxy)
+                    except Exception as e:
+                        continue                  
         print "Get all proxy in queue!"
         self.fetch_finish = True
 
@@ -70,7 +76,8 @@ class ProxySpider(object):
             "headers": {
                 "User-Agent": choice(USER_AGENT_LIST),
             }, 
-            "timeout": TIME_OUT        
+            "timeout": TIME_OUT,
+            "verify": False        
         }
         resp = None
         for i in range(RETRY_NUM):
