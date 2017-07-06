@@ -1,3 +1,16 @@
+## 更新 ---2017-07-06
+
+- 因为代理IP源网站为了反爬取，会经常变更版版面，所以爬取策略做了一些修改，删除了一些无用的源。
+- 增加了代理IP的隐匿级别，最终输出的格式如下：
+
+    | proxy               | type    |  anonymity_level  |
+    | --------            | -----:  | :----:            |
+    | 212.126.113.179:80  | HTTP    |   Elite           |
+    | 61.191.41.130:80    | HTTP    |   Elite           |
+    | 47.52.18.182:80     | HTTP    |   Transparent     |
+
+
+
 ## 更新 ---2017-06-12
 
 - 因为vps的问题，该程序已经不再更新七牛云的代理IP 文件，也就是说[该文件](http://7xrnwq.com1.z0.glb.clouddn.com/proxy_list.txt?v=1000) 不再是最新的代理IP。
@@ -60,3 +73,7 @@ python proxyspider.py
 
 注：程序跑完后，所有代理IP输出到当前目录下的proxy_list.txt 
 
+## TO BE CONTINUED
+
+- 增加https 代理
+- 增加socks代理
